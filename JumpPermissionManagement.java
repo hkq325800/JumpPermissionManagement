@@ -29,6 +29,7 @@ public class JumpPermissionManagement {
     private static final String MANUFACTURER_ZTE = "ZTE";//中兴
     private static final String MANUFACTURER_YULONG = "YuLong";//酷派
     private static final String MANUFACTURER_LENOVO = "LENOVO";//联想
+    private static final String MANUFACTURER_SMARTISAN = "Smartisan";//锤子
 
     /**
      * 此函数可以自己定义
@@ -57,11 +58,23 @@ public class JumpPermissionManagement {
             case MANUFACTURER_LETV:
                 Letv(activity);
                 break;
+            case MANUFACTURER_SMARTISAN:
+                Smartisan(activity);
+                break;
             default:
                 ApplicationInfo(activity);
                 Log.e("goToSetting", "目前暂不支持此系统");
                 break;
         }
+    }
+
+    public static void Smartisan(Context activity) {
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("packageName", BuildConfig.APPLICATION_ID);
+        ComponentName comp = new ComponentName("com.smartisanos.security", "com.smartisanos.security.MainActivity");
+        intent.setComponent(comp);
+        activity.startActivity(intent);
     }
 
     public static void Huawei(Activity activity) {
@@ -79,6 +92,14 @@ public class JumpPermissionManagement {
         intent.putExtra("packageName", BuildConfig.APPLICATION_ID);
         activity.startActivity(intent);
     }
+
+    // public static void Xiaomi(Context activity) {
+    //     Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+    //     ComponentName componentName = new ComponentName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+    //     intent.setComponent(componentName);
+    //     intent.putExtra("extra_pkgname", activity.getPackageName());
+    //     activity.startActivity(intent);
+    // }
 
     public static void Xiaomi(Activity activity) {
         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
